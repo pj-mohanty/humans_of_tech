@@ -1,0 +1,160 @@
+.person-container {
+    width: 400px;
+    max-width: 400px; /* Set a max width for consistency */
+    margin: 20px auto;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    font-size: 12pt; /* Updated font size */
+}
+
+.person-picture img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.person-name {
+    width: calc(100% - 20px);
+    padding: 8px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 12pt; /* Updated font size */
+}
+
+.extra-info {
+    margin-top: 10px;
+    font-size: 12pt; /* Updated font size */
+}
+
+.info-section {
+    margin-bottom: 15px;
+    text-align: left;
+    font-size: 12pt; /* Updated font size */
+}
+
+.readonly-textarea {
+    width: calc(100% - 20px);
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    color: #333;
+    resize: none;
+    overflow: hidden;
+    font-size: 12pt; /* Updated font size */
+}
+
+.chatbot-container {
+    margin-top: 20px;
+    text-align: left;
+    font-size: 12pt; /* Updated font size */
+}
+
+.input-textarea {
+    width: calc(100% - 20px);
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    font-size: 12pt; /* Updated font size */
+}
+
+.dialog-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12pt; /* Updated font size */
+}
+
+.dialog-btn:hover {
+    background-color: #0056b3;
+}
+
+.reply-area {
+    margin-top: 5px; /* Reduced top margin */
+    font-size: 12pt;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+    width: calc(100% - 20px);
+    height: calc(100% - 20px);
+}
+
+/* Add this new rule to target the <p> tag inside .reply-area */
+.reply-area p {
+    margin: 0; /* Remove default margins */
+    padding: 0; /* Remove default padding */
+}
+
+/* Optional: Adjust the <h3> element */
+h3 {
+    margin-bottom: 5px; /* Adjust as needed to reduce space */
+}
+
+.person-image {
+    width: 100%;
+    height: auto;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.chat-toggle-btn {
+    background-color: white;
+    color: #007bff;
+    border: 1px solid #007bff;
+    padding: 8px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.chat-toggle-btn:hover {
+    background-color: #007bff;
+    color: white;
+}
+
+.chatbot-container {
+    margin-top: 20px;
+    text-align: left;
+}
+
+.input-textarea {
+    width: calc(100% - 20px);
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+.dialog-btn {
+    background-color: #007bff;
+    color: white;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.dialog-btn:hover {
+    background-color: #0056b3;
+}
+
+.reply-area {
+    margin-top: 15px;
+    background-color: #f9f9f9;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid #ddd;
+}
