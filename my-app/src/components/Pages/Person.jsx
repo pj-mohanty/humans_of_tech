@@ -1,21 +1,103 @@
-import React, { useState } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import axios from "axios";
 import './Person.css';
+import '../../App.css'
 
-const Person = ({ name, imageUrl, contribution, importance, politicalInfluence, apiKey }) => {
-    // const name_string = name.toString();
-    // const contribution_string = contribution.toString();
-    // const importance_string = importance.toString();
-    // const politicalInfluence_string = politicalInfluence.toString();
+function Person({ name, imageUrl, contribution, importance, politicalInfluence, apiKey }){
     const prompt_from_descriptors = `Respond as if you are ${name}. Your contribution to the field of computer science is ${contribution}. Your importance is ${importance}. Your political influence is ${politicalInfluence}Answer as if you are ${name} using your historical knowledge and expertise. Please respond in 250 charters or less.`;
     const [text, setText] = useState('');
     const [outputText, setOutputText] = useState('');
     const [showExtraInfo, setShowExtraInfo] = useState(false);
-    const [personName, setPersonName] = useState(name);
-    const [personaDescription, setPersonaDescription] = useState(
-        prompt_from_descriptors
-    );
     const [showChatBot, setShowChatBot] = useState(false);
+    const [bgColor, setBgColor] = useState('#ffffff'); // Default background color
+    const containerRef = useRef(null);
+
+    // Function to adjust a color to a pastel shade
+    const adjustToPastel = (r, g, b) => {
+        // Lighten the color by blending it with white
+        function consistentColorChange(color) {
+            const colorAsProportion = Math.pow(10.0, color / 255.0);
+            const colorMod = 255 * Math.exp(-1.0 / colorAsProportion);
+            const threshold = 154;
+            const transitionSmooth = 160; // Increase (10) for more transition smoothness
+
+            // Smooth transition factor (sigmoid-like transition)
+            const transitionFactor = 1 / (1 + Math.exp((color - threshold) / transitionSmooth));
+
+            // Blend the two outputs using the transition factor
+            const blendedColor = (1 - transitionFactor) * (255 - colorMod) + transitionFactor * colorMod;
+
+            return Math.min(Math.max(0, blendedColor), 255);
+        }
+
+        const lightenedR = consistentColorChange(r);
+        const lightenedG = consistentColorChange(g);
+        const lightenedB = consistentColorChange(b);
+        return `rgb(${lightenedR}, ${lightenedG}, ${lightenedB})`;
+    };
+
+    // Function to extract dominant color from image and ensure it is pastel-like and not black
+    const extractDominantColor = (image) => {
+        const canvas = document.createElement('canvas');
+        const ctx = canvas.getContext('2d');
+        canvas.width = image.width;
+        canvas.height = image.height;
+
+        try {
+            ctx.drawImage(image, 0, 0, canvas.width, canvas.height);
+            const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+            const { data } = imageData;
+
+            const colorCount = {};
+            let maxColor = '';
+            let maxCount = 0;
+
+            // Loop through each pixel and accumulate color counts
+            for (let i = 0; i < data.length; i += 4) {
+                const rgb = `${data[i]},${data[i + 1]},${data[i + 2]}`;
+                colorCount[rgb] = (colorCount[rgb] || 0) + 1;
+
+                if (colorCount[rgb] > maxCount) {
+                    maxCount = colorCount[rgb];
+                    maxColor = rgb;
+                }
+            }
+
+            const [r, g, b] = maxColor.split(',').map(Number);
+
+            // Check if the color is too dark (close to black)
+            // if (r < 50 && g < 50 && b < 50) {
+                // If it's too dark, adjust the color to a pastel
+                return adjustToPastel(r, g, b);
+            // }
+
+            // // If it's not too dark, return the color as is
+            // return `rgb(${r}, ${g}, ${b})`;
+
+        } catch (error) {
+            console.error("Failed to extract color due to a tainted canvas:", error);
+            return "#ffffff"; // Fallback to white if there's an error
+        }
+    };
+
+    useEffect(() => {
+        const img = new Image();
+        img.crossOrigin = "anonymous"; // Attempt a CORS request
+        img.src = imageUrl;
+
+        img.onload = () => {
+            const dominantColor = extractDominantColor(img);
+            setBgColor(dominantColor);
+
+            if (containerRef.current) {
+                containerRef.current.style.backgroundColor = dominantColor;
+            }
+        };
+
+        img.onerror = () => {
+            console.error("Failed to load image or cross-origin issue.");
+        };
+    }, [imageUrl]);
 
     const handleToggleInfo = () => {
         setShowExtraInfo(!showExtraInfo);
@@ -25,76 +107,68 @@ const Person = ({ name, imageUrl, contribution, importance, politicalInfluence, 
         setShowChatBot(!showChatBot);
     };
 
-    const handleToggle = () => {
-        setShowExtraInfo(!showExtraInfo);
-    };
-
-    // Function to handle OpenAI API request
-    const handleChatBotResponse = async () => {
+    // Simplified ChatBot response function
+    const handleChatBotResponse = () => {
         if (!text) return;
 
         const apiUrl = "https://api.openai.com/v1/chat/completions";
-
-        // Prompt engineering for Alan Turing persona
         const messages = [
-            {
-                role: "system",
-                content: prompt_from_descriptors,
-            },
-            {
-                role: "user",
-                content: text,
-            },
+            { role: "system", content: prompt_from_descriptors },
+            { role: "user", content: text },
         ];
 
-        try {
-            const response = await axios.post(
+        axios
+            .post(
                 apiUrl,
                 {
                     model: "gpt-4o-mini",
-                    messages: messages,
-                    max_tokens: 150,
+                    messages,
+                    max_tokens: 256,
                     temperature: 0.7,
                     top_p: 1,
                     n: 1,
-                    stop: ['\n'],
+                    stop: ["\n"],
                 },
                 {
                     headers: {
-                        'Authorization': `Bearer ${apiKey}`,
-                        'Content-Type': 'application/json',
+                        Authorization: `Bearer ${apiKey}`,
+                        "Content-Type": "application/json",
                     },
                 }
-            );
-
-            const botReply = response.data.choices[0]?.message?.content || "No response from AI";
-            setOutputText(botReply);
-        } catch (error) {
-            console.error("Error fetching response from OpenAI:", error);
-            setOutputText("Error fetching response. Please try again.");
-        }
+            )
+            .then((response) => {
+                const { choices } = response.data;
+                const message = choices?.[0]?.message?.content?.trim() || "";
+                setOutputText(message);
+            })
+            .catch((error) => {
+                console.error("Error fetching response from OpenAI:", error);
+                setOutputText("Error fetching response. Please try again.");
+            });
     };
 
     return (
-        <div className="person-container">
+        <div className="person-container" ref={containerRef}>
             <div className="person-picture">
-                <img src={imageUrl} alt={`${name} Picture`}/>
+                <img src={imageUrl} alt={`${name} Picture`} />
             </div>
-            <h1>{name}</h1>
+            <div className="person-name">
+                <h1>{name}</h1>
+            </div>
 
             {/* Show More Info / Less Info Toggle */}
             <button className="toggle-btn" onClick={handleToggleInfo}>
-                {showExtraInfo ? 'Hide Info' : 'Show More Info'}
+                {showExtraInfo ? "Hide Info" : "Show More Info"}
             </button>
 
             {showExtraInfo && (
                 <div className="extra-info">
                     <h3>Contribution</h3>
-                    <textarea className="readonly-textarea" value={contribution} readOnly/>
+                    <textarea className="readonly-textarea" value={contribution} readOnly />
                     <h3>Importance</h3>
-                    <textarea className="readonly-textarea" value={importance} readOnly/>
+                    <textarea className="readonly-textarea" value={importance} readOnly />
                     <h3>Political Influence</h3>
-                    <textarea className="readonly-textarea" value={politicalInfluence} readOnly/>
+                    <textarea className="readonly-textarea" value={politicalInfluence} readOnly />
                 </div>
             )}
 

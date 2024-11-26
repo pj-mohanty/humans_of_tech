@@ -5,6 +5,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 
 import Navbar from './components/Navbar';
 import Home from './components/Pages/Home';
+import Personpage from './components/Pages/Personpage';
 
 
 const App = () => {
@@ -14,6 +15,7 @@ const App = () => {
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/personpage" element={<Personpage />} />
         </Routes>
       </main>
     </BrowserRouter>

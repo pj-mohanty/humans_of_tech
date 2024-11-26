@@ -2,6 +2,7 @@ import React from 'react';
 import './Cards.css';
 import CardItem from './CardItem';
 
+
 function Cards() {
   return (
     <div className='cards'>
@@ -14,19 +15,19 @@ function Cards() {
               src='/videos/scientist.jpg'
               text='Explore the greatest mind in technology'
               label='Great scientist'
-              path='/Person'
+              path='/Personpage'
             />
             <CardItem
               src='/videos/women in tech.jpeg'
               text='Influencial women in technology'
               label='women in tech'
-              path='/Person'
+              path='/Personpage'
             />
             <CardItem
               src='/videos/Search yourself.jpg'
               text='Can not find the person you are looking for? no worries! Search Here!!'
               label='explore'
-              path='/Person'
+              path='/Personpage'
             />
           </ul>
         </div>

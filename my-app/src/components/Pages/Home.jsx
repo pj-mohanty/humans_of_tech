@@ -1,13 +1,13 @@
 import '../../App.css';
 import HeroSection from '../HeroSection';
-import CardSection from './Cards';
+import Cards from './Cards';
 import Footer from './Footer';
 
 function Home(){
     return(
         <div className="app-container">
         <HeroSection />
-        <CardSection />
+        <Cards />
         <Footer />
         </div>
     );
