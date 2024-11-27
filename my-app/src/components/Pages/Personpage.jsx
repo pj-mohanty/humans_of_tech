@@ -6,7 +6,7 @@ import userData from "./users.json";
 import axios from "axios";
 
 const Personpage = () => {
-    const KEY = "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";
+    const KEY = "demo";
 
     const [users, setUsers] = useState([]); // Holds processed users
     const [loading, setLoading] = useState(true); // Tracks loading state
