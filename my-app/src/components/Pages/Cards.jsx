@@ -27,7 +27,7 @@ function Cards() {
               src='/videos/Search yourself.jpg'
               text='Can not find the person you are looking for? no worries! Search Here!!'
               label='explore'
-              path='/Personpage'
+              path='/SearchName'
             />
           </ul>
         </div>

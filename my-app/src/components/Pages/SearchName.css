@@ -1,0 +1,72 @@
+/* General Container Styling */
+.search-container {
+    max-width: 600px;
+    margin: 2rem auto; /* Center the component with margin */
+    padding: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    background-color: #f9f9f9;
+    font-family: 'Arial', sans-serif;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center; /* Center items horizontally */
+    justify-content: center; /* Center items vertically */
+    min-height: 300px; /* Ensure sufficient height */
+}
+
+/* Input Container Styling */
+.search-input-container {
+    margin-bottom: 20px;
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+}
+
+/* Input Styling */
+.search-input {
+    padding: 10px;
+    width: 300px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 16px;
+    transition: border-color 0.3s ease;
+}
+
+.search-input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+/* Button Styling */
+.search-button {
+    padding: 10px 20px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+    margin-left: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.search-button:hover {
+    background-color: #0056b3;
+}
+
+/* Error Styling */
+.error-message {
+    color: red;
+    font-size: 14px;
+    margin-top: 1rem;
+    text-align: center;
+}
+
+/* Loading Styling */
+.loading-message {
+    font-size: 16px;
+    font-style: italic;
+    margin-top: 1rem;
+}

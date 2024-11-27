@@ -6,16 +6,20 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import Navbar from './components/Navbar';
 import Home from './components/Pages/Home';
 import Personpage from './components/Pages/Personpage';
+import {SearchName} from "./components/Pages/SearchName";
 
 
 const App = () => {
-  return (
+    const KEY = "demo";
+
+    return (
     <BrowserRouter>
       <Navbar />
       <main>
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/personpage" element={<Personpage />} />
+          <Route path="/personpage" element={<Personpage apiKey={KEY} />} />
+            <Route path="/SearchName" element={<SearchName apiKey={KEY} />} /> {/* New route for SearchName */}
         </Routes>
       </main>
     </BrowserRouter>

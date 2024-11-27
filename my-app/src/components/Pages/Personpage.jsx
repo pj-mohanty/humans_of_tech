@@ -1,28 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import Person from './Person';
 import './Personpage.css';
-// import processNames from "./ParseWiki";
-import userData from "./users.json";
 import axios from "axios";
 
-const Personpage = () => {
-    const KEY = "demo";
-
+const Personpage = ({apiKey}) => {
     const [users, setUsers] = useState([]); // Holds processed users
     const [loading, setLoading] = useState(true); // Tracks loading state
     const [error, setError] = useState(null); // Tracks errors
-
-    // useEffect(() => {
-    //     try {
-    //         // Simulate fetching names from the local file
-    //         setUsers(userData);
-    //     } catch (err) {
-    //         setError("Failed to load users");
-    //     } finally {
-    //         setLoading(false);
-    //     }
-    // }, []);
-
 
     useEffect(() => {
         const fetchData = () => {
@@ -74,7 +58,7 @@ const Personpage = () => {
                                 contribution={person.contribution}
                                 importance={person.importance}
                                 politicalInfluence={person.politicalInfluence}
-                                apiKey={KEY.toString()}
+                                apiKey={apiKey.toString()}
                             />
                         ))}
                     </div>
