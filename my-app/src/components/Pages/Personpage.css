@@ -43,4 +43,11 @@
     overflow-x: auto;
     padding: 20px;
   }
+
+.horizontal-container {
+    display: grid;
+    grid-auto-flow: column; /* Align items horizontally */
+    gap: 10px;
+}
+
   
