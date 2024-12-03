@@ -2,8 +2,8 @@ import axios from "axios";
 
 const WIKIPEDIA_API_URL = "https://en.wikipedia.org/w/api.php";
 
-function fetchWikipediaPage(name, setDebugInfo) {
-    setDebugInfo(`Fetching Wikipedia page for "${name}"...`);
+function fetchWikipediaPage(name) {
+    console.log(`Fetching Wikipedia page for "${name}"...`);
 
     const apiUrl = `${WIKIPEDIA_API_URL}?action=query&format=json&origin=*&prop=extracts&explaintext=true&titles=${name}`;
 
@@ -13,14 +13,14 @@ function fetchWikipediaPage(name, setDebugInfo) {
             const pages = response.data?.query?.pages;
 
             if (!pages || Object.keys(pages).length === 0) {
-                setDebugInfo(`Error: Wikipedia API returned no pages for "${name}".`);
+                console.log(`Error: Wikipedia API returned no pages for "${name}".`);
                 throw new Error(`No pages found for "${name}".`);
             }
 
             const firstPage = Object.values(pages)[0];
 
             if (!firstPage || firstPage.pageid === "-1") {
-                setDebugInfo(`Error: Wikipedia page for "${name}" not found.`);
+                console.log(`Error: Wikipedia page for "${name}" not found.`);
                 throw new Error(`Wikipedia page for "${name}" not found.`);
             }
 
@@ -34,27 +34,27 @@ function fetchWikipediaPage(name, setDebugInfo) {
         })
         .catch((error) => {
             console.error("Wikipedia API Error:", error.message);
-            setDebugInfo(`Error fetching Wikipedia page for "${name}": ${error.message}`);
+            console.log(`Error fetching Wikipedia page for "${name}": ${error.message}`);
             return { content: null };
         });
 }
 
-function processWithOpenAI(content, name, apiKey, setDebugInfo) {
-    setDebugInfo(`Sending request to OpenAI for processing "${name}"...`);
+function processWithOpenAI(content, name, apiKey) {
+    console.log(`Sending request to OpenAI for processing "${name}"...`);
 
     return axios
         .post(
             "https://api.openai.com/v1/chat/completions",
             {
-                model: "gpt-4",
+                model: "gpt-4o-mini",
                 messages: [
                     { role: "system", content: "Analyze the following Wikipedia content." },
                     {
                         role: "user",
-                        content: `Analyze the following Wikipedia content about ${name} and extract the following information in the exact format:
+                        content: `Analyze the following Wikipedia content about ${name} and extract the following information in the exact format, presenting plain text only when complete:
                         {
                             "name": "<Name of the person, using only first and last common names>",
-                            "imageUrl": "<URL of the person's profile image>",
+                            "imageUrl": "<URL of the person's profile image, unless the image cannot be found, in which case use this URL instead: https://cdn.arstechnica.net/wp-content/uploads/archive/bill-gates-outlook/outlook-default-person.png>",
                             "contribution": "<Contributions to the field of Computer Science>",
                             "importance": "<Description of the importance of their work>",
                             "politicalInfluence": "<Political influence in the field>"
@@ -67,7 +67,7 @@ function processWithOpenAI(content, name, apiKey, setDebugInfo) {
             },
             {
                 headers: {
-                    Authorization: `Bearer ${apiKey}`,
+                    Authorization: `Bearer ${apiKey.toString()}`,
                     "Content-Type": "application/json",
                 },
             }
@@ -88,30 +88,28 @@ function processWithOpenAI(content, name, apiKey, setDebugInfo) {
 
             // Attempt to parse the returned JSON content into the structure
             try {
-                // const parsedContent = JSON.parse(extractedContent);
-                // console.log("Parsed Content:", parsedContent);
                 return extractedContent;
             } catch (error) {
                 console.error("Error parsing OpenAI response:", error);
-                setDebugInfo("Error: Unable to parse the response from OpenAI.");
+                console.log("Error: Unable to parse the response from OpenAI.");
                 return null;
             }
         })
         .catch((error) => {
             console.error("OpenAI API Error Details:", error.response?.data || error.message);
-            setDebugInfo(`OpenAI API error for "${name}": ${error.message}`);
+            console.log(`OpenAI API error for "${name}": ${error.message}`);
             return null;
         });
 }
 
-export default function processNames(names, apiKey, setDebugInfo) {
+export default function processNames(names, apiKey) {
     if (!names || names.length === 0) {
-        setDebugInfo("No names provided for processing.");
+        console.log("No names provided for processing.");
         throw new Error("No names provided");
     }
 
     if (!apiKey) {
-        setDebugInfo("API key is missing.");
+        console.log("API key is missing.");
         throw new Error("API key is missing");
     }
 
@@ -120,18 +118,18 @@ export default function processNames(names, apiKey, setDebugInfo) {
     return names
         .reduce((promiseChain, name) => {
             return promiseChain.then(() =>
-                fetchWikipediaPage(name, setDebugInfo)
+                fetchWikipediaPage(name)
                     .then(({ content }) => {
                         if (!content) return null;
 
-                        return processWithOpenAI(content, name, apiKey, setDebugInfo).then((processedData) => {
+                        return processWithOpenAI(content, name, apiKey).then((processedData) => {
                             if (processedData) {
                                 results.push(JSON.parse(processedData)); // Add processed data to results
                             }
                         });
                     })
                     .catch((error) => {
-                        setDebugInfo(`Error processing "${name}": ${error.message}`);
+                        console.log(`Error processing "${name}": ${error.message}`);
                     })
             );
         }, Promise.resolve())

@@ -37,19 +37,19 @@ const Personpage = ({apiKey}) => {
 // Calculate the number of rows
     const NUM_ROWS = Math.ceil(personsFlat.length / NUM_COLUMNS);
 
-// Reshape into row-major order
-    const persons2D = Array.from({ length: NUM_ROWS }, (_, rowIdx) =>
-        Array.from({ length: NUM_COLUMNS }, (_, colIdx) => {
+// Reshape into column-major order
+    const persons2D = Array.from({ length: NUM_COLUMNS }, (_, colIdx) =>
+        Array.from({ length: NUM_ROWS }, (_, rowIdx) => {
             const idx = rowIdx * NUM_COLUMNS + colIdx;
-            return personsFlat[idx]; // Select the element in row-major order
-        }).filter(Boolean) // Remove undefined values (for incomplete rows)
+            return personsFlat[idx]; // Select the element in column-major order
+        }).filter(Boolean) // Remove undefined values (for incomplete columns)
     );
 
     return (
         <div>
-            <div className="person-list">
+            <div className="horizontal-container">
                 {persons2D.map((peopleArr, colIdx) => (
-                    <div key={colIdx} className="horizontal-container">
+                    <div key={colIdx} className="">
                         {peopleArr.map((person, personIdx) => (
                             <Person
                                 key={personIdx}

@@ -7,9 +7,11 @@ function Navbar() {
   const [click, setClick] = useState(false);
   const [button, setButton] = useState(true);
 
+  // Toggles the mobile menu
   const handleClick = () => setClick(!click);
   const closeMobileMenu = () => setClick(false);
 
+  // Show or hide the Sign-In button based on screen width
   const showButton = () => {
     if (window.innerWidth <= 960) {
       setButton(false);
@@ -18,11 +20,14 @@ function Navbar() {
     }
   };
 
+  // Add event listener for window resize
   useEffect(() => {
     showButton();
-  }, []);
+    window.addEventListener('resize', showButton);
 
-  window.addEventListener('resize', showButton);
+    // Cleanup the event listener
+    return () => window.removeEventListener('resize', showButton);
+  }, []);
 
   return (
     <>
@@ -30,7 +35,7 @@ function Navbar() {
         <div className='navbar-container'>
           <Link to='/' className='navbar-logo' onClick={closeMobileMenu}>
             HOFT
-            <i class='fab fa-typo3' />
+            <i className='fab fa-typo3' />
           </Link>
           <div className='menu-icon' onClick={handleClick}>
             <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
@@ -42,35 +47,21 @@ function Navbar() {
               </Link>
             </li>
             <li className='nav-item'>
-              <Link
-                to='/home'
-                className='nav-links'
-                onClick={closeMobileMenu}
-              >
+              <Link to='/About' className='nav-links' onClick={closeMobileMenu}>
                 About
               </Link>
             </li>
             <li className='nav-item'>
-              <Link
-                to='/About'
-                className='nav-links'
-                onClick={closeMobileMenu}
-              >
+              <Link to='/Footer' className='nav-links' onClick={closeMobileMenu}>
                 Contact Us
               </Link>
             </li>
-
-            <li>
-              <Link
-                to='/sign-up'
-                className='nav-links-mobile'
-                onClick={closeMobileMenu}
-              >
-                Sign Up
+            <li className='nav-item'>
+              <Link to='/SignIn' className='nav-links' onClick={closeMobileMenu}>
+                Sign In
               </Link>
             </li>
           </ul>
-          {button && <Button buttonStyle='btn--outline'>SIGN IN</Button>}
         </div>
       </nav>
     </>
@@ -78,4 +69,3 @@ function Navbar() {
 }
 
 export default Navbar;
-

@@ -36,8 +36,8 @@ function Person({ name, imageUrl, contribution, importance, politicalInfluence, 
         return `rgb(${lightenedR}, ${lightenedG}, ${lightenedB})`;
     };
 
-    // Function to extract dominant color from image and ensure it is pastel-like and not black
-    const extractDominantColor = (image) => {
+// Function to extract the dominant color efficiently
+    const extractDominantColor = (image, sampleRate = 10) => {
         const canvas = document.createElement('canvas');
         const ctx = canvas.getContext('2d');
         canvas.width = image.width;
@@ -48,38 +48,31 @@ function Person({ name, imageUrl, contribution, importance, politicalInfluence, 
             const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
             const { data } = imageData;
 
-            const colorCount = {};
-            let maxColor = '';
+            const colorCounts = new Map();
+            let maxColor = [0, 0, 0];
             let maxCount = 0;
 
-            // Loop through each pixel and accumulate color counts
-            for (let i = 0; i < data.length; i += 4) {
-                const rgb = `${data[i]},${data[i + 1]},${data[i + 2]}`;
-                colorCount[rgb] = (colorCount[rgb] || 0) + 1;
+            // Sample every nth pixel to reduce processing time
+            for (let i = 0; i < data.length; i += 4 * sampleRate) {
+                const rgb = [data[i], data[i + 1], data[i + 2]];
+                const rgbKey = rgb.join(',');
 
-                if (colorCount[rgb] > maxCount) {
-                    maxCount = colorCount[rgb];
+                colorCounts.set(rgbKey, (colorCounts.get(rgbKey) || 0) + 1);
+
+                if (colorCounts.get(rgbKey) > maxCount) {
+                    maxCount = colorCounts.get(rgbKey);
                     maxColor = rgb;
                 }
             }
 
-            const [r, g, b] = maxColor.split(',').map(Number);
-
-            // Check if the color is too dark (close to black)
-            // if (r < 50 && g < 50 && b < 50) {
-                // If it's too dark, adjust the color to a pastel
-                return adjustToPastel(r, g, b);
-            // }
-
-            // // If it's not too dark, return the color as is
-            // return `rgb(${r}, ${g}, ${b})`;
-
+            return adjustToPastel(...maxColor);
         } catch (error) {
             console.error("Failed to extract color due to a tainted canvas:", error);
             return "#ffffff"; // Fallback to white if there's an error
         }
     };
 
+// React useEffect hook for setting background color
     useEffect(() => {
         const img = new Image();
         img.crossOrigin = "anonymous"; // Attempt a CORS request

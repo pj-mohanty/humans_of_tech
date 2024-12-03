@@ -2,8 +2,16 @@ import React from 'react';
 import './HeroSection.css';
 import '../App.css';
 import { Button } from './Button';
+import {useNavigate} from "react-router-dom";
+import "./Pages/Personpage";
 
 const HeroSection= () => {
+    const navigate = useNavigate();
+
+    const handleNavigation = () => {
+        navigate('./Personpage');
+    };
+
   return (
     <div className='Hero-container'>
       <video src="/videos/video-1.mp4" autoPlay loop muted />
@@ -14,6 +22,7 @@ const HeroSection= () => {
           className='btns'
           buttonStyle='btn--outline'
           buttonSize='btn--large'
+          onClick={handleNavigation}
         >
           Talk To Inventors
         </Button>

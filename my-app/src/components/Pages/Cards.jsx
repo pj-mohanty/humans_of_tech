@@ -18,12 +18,6 @@ function Cards() {
               path='/Personpage'
             />
             <CardItem
-              src='/videos/women in tech.jpeg'
-              text='Influencial women in technology'
-              label='women in tech'
-              path='/Personpage'
-            />
-            <CardItem
               src='/videos/Search yourself.jpg'
               text='Can not find the person you are looking for? no worries! Search Here!!'
               label='explore'

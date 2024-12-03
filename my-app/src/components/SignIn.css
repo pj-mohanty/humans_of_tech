@@ -1,0 +1,100 @@
+/* styles.css */
+.sign-in-container {
+    max-width: 400px;
+    margin: 50px auto;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 6px 10px rgba(0, 0, 0, 0.15);
+    text-align: center;
+    background: linear-gradient(90deg, hsl(194, 87%, 29%) 0%, rgb(26, 23, 23) 100%);
+    font-family: 'Arial', sans-serif;
+    color: #333333;
+  }
+  
+  .sign-in-container h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #ffffff;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+  }
+  
+  .sign-in-container form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .sign-in-container label {
+    align-self: flex-start;
+    margin: 10px 0 5px;
+    font-size: 14px;
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgb(235, 226, 226);
+  }
+  
+  .sign-in-container input {
+    width: 100%;
+    padding: 12px;
+    margin-bottom: 15px;
+    border: 1px solid #ffd1dc;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+    background: #fff5f7;
+  }
+  
+  .sign-in-container input:focus {
+    outline: none;
+    border-color: #ff6f91;
+    box-shadow: 0 0 6px rgba(255, 111, 145, 0.5);
+  }
+  
+  .sign-in-container button {
+    width: 100%;
+    padding: 12px;
+    background: linear-gradient(90deg, hsl(194, 87%, 29%) 0%, rgb(26, 23, 23) 100%);
+    color: #ffffff;
+    border: none;
+    border-radius: 6px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: transform 0.2s ease, box-shadow 0.3s ease;
+    text-shadow: 0 1px 2px rgb(221, 203, 203);
+  }
+  
+  .sign-in-container button:hover {
+    background: linear-gradient(90deg, hsl(194, 87%, 29%) 0%, rgb(26, 23, 23) 100%);
+    transform: scale(1.05);
+    box-shadow: 0 6px 12px rgb(238, 234, 235);
+  }
+  
+  .sign-in-container button:active {
+    transform: scale(1);
+    box-shadow: none;
+  }
+  
+  .sign-in-container .forgot-password {
+    margin-top: 10px;
+    font-size: 14px;
+    color: #ffd1dc;
+  }
+  
+  /* .sign-in-container .forgot-password a {
+    color: #ff6f91;
+    text-decoration: none;
+    transition: color 0.3s ease;
+  }
+  
+  .sign-in-container .forgot-password a:hover {
+    color: #ff3f6c;
+    text-decoration: underline; */
+  /* } */
+  
+  /* Add a footer area for visual balance */
+  .sign-in-footer {
+    margin-top: 20px;
+    font-size: 12px;
+    color: #ffffff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+  }
+  

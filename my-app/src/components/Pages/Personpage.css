@@ -48,6 +48,7 @@
     display: grid;
     grid-auto-flow: column; /* Align items horizontally */
     gap: 10px;
+    transition: all 0.3s ease; /* Smooth transitions */
 }
 
   

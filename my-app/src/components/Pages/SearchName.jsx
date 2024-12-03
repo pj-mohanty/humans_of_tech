@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import axios from "axios";
 import Person from "./Person"; // Ensure the correct path to the Person component
 import './SearchName.css'; // Import the CSS file
+import './parsewiki';
+import processNames from "./parsewiki";
 
 export function SearchName( {apiKey}) {
     const [users, setUsers] = useState([]); // Holds processed users
@@ -10,7 +12,6 @@ export function SearchName( {apiKey}) {
     const [name, setName] = useState(""); // User input
     const [personData, setPersonData] = useState(null); // Retrieved Person data
 
-    // Function to handle the search when the button is clicked
     const handleSearch = () => {
         setLoading(true); // Set loading to true when search starts
         setError(""); // Clear previous errors
@@ -19,12 +20,26 @@ export function SearchName( {apiKey}) {
         // Axios GET request to fetch Person data by name
         axios
             .get(`https://cs-514-project-5-database.wl.r.appspot.com/findByName?name=${name}`)
-            .then((response) => {
+            .then(async (response) => {
                 const data = response.data;
-                if (data) {
-                    setUsers(data); // Assuming the data is returned in `response.data`
+                if (data && data.length > 0) {
+                    setUsers(data); // Set users if data is found
                 } else {
-                    setError("No person found with this name.");
+                    console.log(`No data found for "${name}". Attempting to process using processNames().`);
+
+                    const names = [name]; // Prepare name for processNames
+                    try {
+                        const processedNames = await processNames(names, apiKey);// Call processNames and wait for its completion
+                        if (processedNames && processedNames.length > 0) {
+                            setUsers(processedNames); // Set users with processed names
+                        } else {
+                            console.error("Error: No processed data returned for the name.");
+                            setError(`No data found for "${name}" and unable to process further.`);
+                        }
+                    } catch (error) {
+                        console.error("Error processing names:", error);
+                        setError(`An error occurred while processing the name "${name}".`);
+                    }
                 }
             })
             .catch((err) => {

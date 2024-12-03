@@ -1,5 +1,5 @@
 .footer-container {
-    background-color: rgba(10, 78, 99, 0.986);
+    background-color: whitesmoke; /* rgba(10, 78, 99, 0.986) */
     padding: 20px;
     text-align: center;
   }

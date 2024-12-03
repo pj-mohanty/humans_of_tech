@@ -7,7 +7,7 @@ const Footer = () => {
       <section className="footer-subscription">
         <p className="footer-subscription-heading">Contact Information</p>
         <p className="footer-subscription-text">
-          <strong>Email:</strong> contact@example.com
+          <strong>Email:</strong> pmohanty@dons.usfca.edu, ajbainton@dons.usfca.edu
         </p>
         <p className="footer-subscription-text">
           <strong>Address:</strong> University of San francisco, San Francisco, CA, USA
