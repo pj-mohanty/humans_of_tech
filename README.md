@@ -8,6 +8,8 @@ Andy Bainton, Padmaja Mohanty - CS514 - Final Project Proposal
 4. Similarly, one must add a Google Firebase key in LoginForm.js to make the user login section work properly.
 5. Run 'npm start' to view the project
 
+Watch this video on how to install properly: https://drive.google.com/file/d/1c9aAoKPr6I-pZa-LwHQfeTI1lkDY_0a7/view?usp=sharing
+
 Due to limitations with uploading video and image files to Google Cloud, the complete project can be viewed from one's localhost in their brower. However, a version without the local images and videos can be viewed at this link (https://cs-514-project-5-frontend.wl.r.appspot.com), which still features the search and person muesaem display functionality.
 
 ## Project overview
@@ -25,3 +27,6 @@ Database exits in Google Cloud storage in a separate project from the frontend.
 Parts:
 Used OpenAI API to parse Wikipedia API responses to create the JSON file described above. 
 Used OpenAI API to create AI chatbots of each person with independent chat histories.
+
+## Video Description:
+Watch this video describing our project: https://drive.google.com/file/d/15N5qx4jVFbSSP5Epp280pP0AkqPs4BDC/view?usp=sharing
