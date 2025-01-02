@@ -1,5 +1,4 @@
 # Humans_of_Technology
-Andy Bainton, Padmaja Mohanty - CS514 - Final Project Proposal
 
 ## How to run
 1. Download code from GitHub
