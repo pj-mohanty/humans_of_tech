@@ -27,5 +27,8 @@ Parts:
 Used OpenAI API to parse Wikipedia API responses to create the JSON file described above. 
 Used OpenAI API to create AI chatbots of each person with independent chat histories.
 
+![App Screenshot](./assets/images/screenshot.png)
+
+
 ## Video Description:
 Watch this video describing our project: https://drive.google.com/file/d/15N5qx4jVFbSSP5Epp280pP0AkqPs4BDC/view?usp=sharing
