@@ -3,7 +3,13 @@
 ## Project Demo:
 Watch this video describing our project: https://drive.google.com/file/d/15N5qx4jVFbSSP5Epp280pP0AkqPs4BDC/view?usp=sharing
 
-![App Screenshot](./assets/images/screenshot.png)
+![Image](https://github.com/user-attachments/assets/aed7b9d8-5993-4e8e-b9ed-47dbf62f21b6)
+
+![Image](https://github.com/user-attachments/assets/c915b87b-ec84-4fe2-a391-16a6f6e59bea)
+
+![Image](https://github.com/user-attachments/assets/fb600afb-a0e7-483c-b655-75d20ca54a52)
+
+![Image](https://github.com/user-attachments/assets/2032580d-823c-4ba6-b7a8-94c77dbf6ae6)
 ## How to run
 1. Download code from GitHub
 2. Run 'npm install' to install dependencies
