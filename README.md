@@ -3,6 +3,7 @@
 ## Project Demo:
 Watch this video describing our project: https://drive.google.com/file/d/15N5qx4jVFbSSP5Epp280pP0AkqPs4BDC/view?usp=sharing
 
+## Screenshots
 ![Image](https://github.com/user-attachments/assets/aed7b9d8-5993-4e8e-b9ed-47dbf62f21b6)
 
 ![Image](https://github.com/user-attachments/assets/c915b87b-ec84-4fe2-a391-16a6f6e59bea)
