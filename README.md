@@ -9,7 +9,7 @@ Watch this video describing our project: https://drive.google.com/file/d/15N5qx4
 
 ![Image](https://github.com/user-attachments/assets/fb600afb-a0e7-483c-b655-75d20ca54a52)
 
-![Image](https://github.com/user-attachments/assets/2032580d-823c-4ba6-b7a8-94c77dbf6ae6)
+![Image](https://github.com/user-attachments/assets/165f4fd0-b6a6-42d5-8e01-d6f6638ccbb8)
 ## How to run
 1. Download code from GitHub
 2. Run 'npm install' to install dependencies
